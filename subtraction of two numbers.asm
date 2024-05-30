@@ -1,9 +1,11 @@
 .model small
 .stack 100h
 .data
-a db 'subtractaction $'  
+a db 'subtractaction $' 
 b db 'first number $'
 c db 'second number $'
+d db 'Result $'
+
 .code
 main proc
     mov ax,@data
@@ -41,8 +43,23 @@ main proc
     int 21h
     mov bh,al
     
+    mov ah,2
+    mov dl,10
+    int 21h
+    mov dl,13
+    int 21h
+    
+    mov ah,9
+    lea dx,d
+    int 21h 
+
+
+    
     sub bl,bh
     add bl,48
+
+
+    
     
     mov ah,2
     mov dl,bl
