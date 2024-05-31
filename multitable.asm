@@ -1,133 +1,133 @@
-.MODEL SMALL 
-.STACK 100H 
-.DATA 
-    MESSAGE DB 0AH, 0DH, "ENTER A NUMBER: $" 
-    NOTPROCESS DB 0AH, 0DH, "NOT A VALID DIGIT, CANNOT PROCES$" 
-    AGAIN DB 0AH, 0DH, "REPEAT?(Y/N): $" 
-.CODE 
+.model small 
+.stack 100h 
+.data 
+    message db 0ah, 0dh, "enter a number: $" 
+    notprocess db 0ah, 0dh, "not a valid digit, cannot proces$" 
+    again db 0ah, 0dh, "repeat?(y/n): $" 
+.code 
  
-    MAIN: 
-        MOV AX, @DATA 
-        MOV DS, AX 
+    main: 
+        mov ax, @data 
+        mov ds, ax 
          
-        LEA DX, MESSAGE 
-        MOV AH, 09H 
-        INT 21H 
+        lea dx, message 
+        mov ah, 09h 
+        int 21h 
          
-        MOV AH, 01H 
-        INT 21H 
+        mov ah, 01h 
+        int 21h 
          
-        MOV CH, 0AH 
-        MOV CL, 00H       
+        mov ch, 0ah 
+        mov cl, 00h       
          
-        CMP AL, 3AH 
-        JGE NOT_PRO 
-        SUB AL, 30H 
-        MOV BH, AL 
-        MOV BL, 01H 
-  NEXT: 
+        cmp al, 3ah 
+        jge not_pro 
+        sub al, 30h 
+        mov bh, al 
+        mov bl, 01h 
+  next: 
                     
-        MOV DL, 0DH 
-        MOV AH, 02H 
-        INT 21H            
+        mov dl, 0dh 
+        mov ah, 02h 
+        int 21h            
          
-        MOV DL, 0AH 
-        MOV AH, 02H 
-        INT 21H            
+        mov dl, 0ah 
+        mov ah, 02h 
+        int 21h            
          
-        MOV DL, ' ' 
-        MOV AH, 02H 
-        INT 21H 
-         
-         
-        MOV DL, BH 
-        ADD DL, 30H 
-        MOV AH, 02H 
-        INT 21H 
-         
-        MOV DL, ' ' 
-        MOV DL, '*' 
-        MOV AH, 02H 
-        INT 21H 
+        mov dl, ' ' 
+        mov ah, 02h 
+        int 21h 
          
          
-        MOV AL, BL 
-        MUL BH 
+        mov dl, bh 
+        add dl, 30h 
+        mov ah, 02h 
+        int 21h 
          
-        AAM 
+        mov dl, ' ' 
+        mov dl, '*' 
+        mov ah, 02h 
+        int 21h 
          
-        PUSH AX 
+         
+        mov al, bl 
+        mul bh 
+         
+        aam 
+         
+        push ax 
         
          
-        MOV AH, 00H 
-        MOV AL, BL 
-        AAA 
+        mov ah, 00h 
+        mov al, bl 
+        aaa 
          
          
          
-        MOV CL, AH 
-        MOV BL, AL 
+        mov cl, ah 
+        mov bl, al 
          
          
-        MOV DL, CL 
-        ADD DL, 30H 
-        MOV AH, 02H 
-        INT 21H 
+        mov dl, cl 
+        add dl, 30h 
+        mov ah, 02h 
+        int 21h 
          
-        MOV DL, BL 
-        ADD DL, 30H 
-        MOV AH, 02H 
-        INT 21H 
+        mov dl, bl 
+        add dl, 30h 
+        mov ah, 02h 
+        int 21h 
          
-  RESULT: 
-        MOV DL, ' '      
-        MOV DL, '=' 
-        MOV AH, 02H 
-        INT 21H 
-         
-       
-         
-        POP AX 
-         
-        MOV DH, AL 
-        MOV DL, AH 
-        ADD DL, 30H 
-        MOV AH, 02H 
-        INT 21H 
-         
-        MOV DL, DH 
-        ADD DL, 30H 
-        MOV AH, 02H 
-        INT 21H 
-         
+  result: 
+        mov dl, ' '      
+        mov dl, '=' 
+        mov ah, 02h 
+        int 21h 
          
        
          
-        INC BL 
-        DEC CH 
-        CMP CH, 00H 
-        JNE NEXT 
-        JMP QUESTION 
-   NOT_PRO: 
-        LEA DX, NOTPROCESS 
-        MOV AH, 09H 
-        INT 21H 
+        pop ax 
          
-   QUESTION: 
-        LEA DX, AGAIN 
-        MOV AH, 09H 
-        INT 21H 
+        mov dh, al 
+        mov dl, ah 
+        add dl, 30h 
+        mov ah, 02h 
+        int 21h 
          
-        MOV AH, 01H 
-        INT 21H 
+        mov dl, dh 
+        add dl, 30h 
+        mov ah, 02h 
+        int 21h 
          
-        OR AL, 20H 
          
-        CMP AL, 'y' 
-        JNE EXIT 
-        JMP MAIN 
-   EXIT:          
-        MOV AH, 04CH 
-        INT 21H
+       
+         
+        inc bl 
+        dec ch 
+        cmp ch, 00h 
+        jne next 
+        jmp question 
+   not_pro: 
+        lea dx, notprocess 
+        mov ah, 09h 
+        int 21h 
+         
+   question: 
+        lea dx, again 
+        mov ah, 09h 
+        int 21h 
+         
+        mov ah, 01h 
+        int 21h 
+         
+        or al, 20h 
+         
+        cmp al, 'y' 
+        jne exit 
+        jmp main 
+   exit:          
+        mov ah, 04ch 
+        int 21h
           
-   END MAIN 
+   end main 
