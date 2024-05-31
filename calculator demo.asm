@@ -1,286 +1,286 @@
-.MODEL SMALL
-.STACK 100H
-.DATA  
+.model small
+.stack 100h
+.data  
 
-MSG1 DB 10,13,'1.Add$'
-MSG2 DB 10,13,'2.Sub$'
-MSG3 DB 10,13,'3.Mul$'
-MSG4 DB 10,13,'4.Div$'
-MSG5 DB 10,13,'Choose One:$'
-MSG6 DB 10,13,10,13,'Enter 1st Number:$'
-MSG7 DB 10,13,'Enter 2nd Number:$'
-MSG8 DB 10,13,10,13,'The Result is:$' 
+msg1 db 10,13,'1.add$'
+msg2 db 10,13,'2.sub$'
+msg3 db 10,13,'3.mul$'
+msg4 db 10,13,'4.div$'
+msg5 db 10,13,'choose one:$'
+msg6 db 10,13,10,13,'enter 1st number:$'
+msg7 db 10,13,'enter 2nd number:$'
+msg8 db 10,13,10,13,'the result is:$' 
 
 
-NUM1 DB ?
-NUM2 DB ?
-RESULT DB ?
-.CODE
-MAIN PROC
-    MOV AX,@DATA
-    MOV DS,AX 
+num1 db ?
+num2 db ?
+result db ?
+.code
+main proc
+    mov ax,@data
+    mov ds,ax 
     
-    LEA DX,MSG1
-    MOV AH,9
-    INT 21H
+    lea dx,msg1
+    mov ah,9
+    int 21h
     
-    LEA DX,MSG2
-    MOV AH,9
-    INT 21H
+    lea dx,msg2
+    mov ah,9
+    int 21h
     
-    LEA DX,MSG3
-    MOV AH,9
-    INT 21H
+    lea dx,msg3
+    mov ah,9
+    int 21h
     
-    LEA DX,MSG4
-    MOV AH,9
-    INT 21H 
+    lea dx,msg4
+    mov ah,9
+    int 21h 
     
     
     
-    LEA DX,MSG5
-    MOV AH,9
-    INT 21H
+    lea dx,msg5
+    mov ah,9
+    int 21h
     
   
-    MOV AH,1
-    INT 21H
-    MOV BH,AL
-    SUB BH,48
+    mov ah,1
+    int 21h
+    mov bh,al
+    sub bh,48
     
-    CMP BH,1
-    JE ADD
+    cmp bh,1
+    je add
     
-    CMP BH,2
-    JE SUB
+    cmp bh,2
+    je sub
      
-    CMP BH,3
-    JE MUL
+    cmp bh,3
+    je mul
     
-    CMP BH,4
-    ;JE DIV
-    
-    
-  ADD:
-    LEA DX,MSG6  ;ENTER 1ST NUMBER
-    MOV AH,9
-    INT 21H 
-    
-    MOV AH,1
-    INT 21H
-    MOV BL,AL
-    
-    LEA DX,MSG7    ;ENTER 2ND NUMBER
-    MOV AH,9
-    INT 21H 
-    
-    MOV AH,1
-    INT 21H
-    MOV CL,AL
-    
-    ADD AL,BL
-    MOV AH,0
-    AAA
+    cmp bh,4
+    ;je div
     
     
-    MOV BX,AX 
-    ADD BH,48
-    ADD BL,48 
+  add:
+    lea dx,msg6  ;enter 1st number
+    mov ah,9
+    int 21h 
     
-    LEA DX,MSG8
-    MOV AH,9
-    INT 21H
+    mov ah,1
+    int 21h
+    mov bl,al
     
+    lea dx,msg7    ;enter 2nd number
+    mov ah,9
+    int 21h 
     
-    MOV AH,2
-    MOV DL,BH
-    INT 21H
+    mov ah,1
+    int 21h
+    mov cl,al
     
-    MOV AH,2
-    MOV DL,BL
-    INT 21H
-    
-    ;LEA DX,MSG
-    ;MOV AH,9
-    ;INT 21H 
-    
-    ;JMP EXIT_P 
+    add al,bl
+    mov ah,0
+    aaa
     
     
-   SUB:
+    mov bx,ax 
+    add bh,48
+    add bl,48 
+    
+    lea dx,msg8
+    mov ah,9
+    int 21h
+    
+    
+    mov ah,2
+    mov dl,bh
+    int 21h
+    
+    mov ah,2
+    mov dl,bl
+    int 21h
+    
+    ;lea dx,msg
+    ;mov ah,9
+    ;int 21h 
+    
+    ;jmp exit_p 
+    
+    
+   sub:
  
-    LEA DX,MSG6  ;ENTER 1ST NUMBER
-    MOV AH,9
-    INT 21H 
+    lea dx,msg6  ;enter 1st number
+    mov ah,9
+    int 21h 
     
-    MOV AH,1
-    INT 21H
-    MOV BL,AL
+    mov ah,1
+    int 21h
+    mov bl,al
     
-    LEA DX,MSG7    ;ENTER 2ND NUMBER
-    MOV AH,9
-    INT 21H 
+    lea dx,msg7    ;enter 2nd number
+    mov ah,9
+    int 21h 
     
-    MOV AH,1
-    INT 21H
-    MOV CL,AL
+    mov ah,1
+    int 21h
+    mov cl,al
     
-    SUB BL,CL
-    ADD BL,48
+    sub bl,cl
+    add bl,48
     
-    LEA DX,MSG8
-    MOV AH,9
-    INT 21H
-    
-    
-    MOV AH,2
-    MOV DL,BL
-    INT 21H
+    lea dx,msg8
+    mov ah,9
+    int 21h
     
     
-    
-    ;LEA DX,MSG
-    ;MOV AH,9
-    ;INT 21H
+    mov ah,2
+    mov dl,bl
+    int 21h
     
     
     
-    ;JMP EXIT_P 
+    ;lea dx,msg
+    ;mov ah,9
+    ;int 21h
+    
+    
+    
+    ;jmp exit_p 
     
     
     
     
-   MUL:
+   mul:
  
-    LEA DX,MSG6
-    MOV AH,9
-    INT 21H
+    lea dx,msg6
+    mov ah,9
+    int 21h
     
     
-    MOV AH,1
-    INT 21H
-    SUB AL,30H
-    MOV NUM1,AL
+    mov ah,1
+    int 21h
+    sub al,30h
+    mov num1,al
     
     
-    LEA DX,MSG7
-    MOV AH,9
-    INT 21H 
+    lea dx,msg7
+    mov ah,9
+    int 21h 
     
     
-    MOV AH,1
-    INT 21H
-    SUB AL,30H
-    MOV NUM2,AL
+    mov ah,1
+    int 21h
+    sub al,30h
+    mov num2,al
     
     
-    MUL NUM1
-    MOV RESULT,AL
-    AAM  
+    mul num1
+    mov result,al
+    aam  
     
     
-    ADD AH,30H
-    ADD AL,30H
+    add ah,30h
+    add al,30h
     
     
-    MOV BX,AX 
+    mov bx,ax 
     
     
-    LEA DX,MSG8
-    MOV AH,9
-    INT 21H 
+    lea dx,msg8
+    mov ah,9
+    int 21h 
     
-    MOV AH,2
-    MOV DL,BH
-    INT 21H
+    mov ah,2
+    mov dl,bh
+    int 21h
     
-    MOV AH,2
-    MOV DL,BL
-    INT 21H
+    mov ah,2
+    mov dl,bl
+    int 21h
     
-    ;LEA DX,MSG
-    ;MOV AH,9
-    ;INT 21H 
+    ;lea dx,msg
+    ;mov ah,9
+    ;int 21h 
     
     
     
-   ; JMP EXIT_P  
+   ; jmp exit_p  
     
    
    
    
    
    
-   DIV:
-    LEA DX,MSG6
-    MOV AH,9
-    INT 21H
+   div:
+    lea dx,msg6
+    mov ah,9
+    int 21h
     
     
-    MOV AH,1
-    INT 21H
-    SUB AL,30H
-    MOV NUM1,AL
+    mov ah,1
+    int 21h
+    sub al,30h
+    mov num1,al
     
     
-    LEA DX,MSG7
-    MOV AH,9
-    INT 21H 
+    lea dx,msg7
+    mov ah,9
+    int 21h 
     
     
-    MOV AH,1
-    INT 21H
-    SUB AL,30H
-    MOV NUM2,AL
+    mov ah,1
+    int 21h
+    sub al,30h
+    mov num2,al
     
-    MOV CL,NUM1
-    MOV CH,00
-    MOV AX,CX  
+    mov cl,num1
+    mov ch,00
+    mov ax,cx  
     
-    DIV NUM2
-    MOV RESULT,AL
-    MOV AH, 00
-    AAD  
-    
-    
-    ADD AH,30H
-    ADD AL,30H
+    div num2
+    mov result,al
+    mov ah, 00
+    aad  
     
     
-    MOV BX,AX 
+    add ah,30h
+    add al,30h
     
     
-    LEA DX,MSG8
-    MOV AH,9
-    INT 21H 
-    
-    MOV AH,2
-    MOV DL,BH
-    INT 21H
-    
-    MOV AH,2
-    MOV DL,BL
-    INT 21H
+    mov bx,ax 
     
     
-    ;LEA DX,MSG
-    ;MOV AH,9
-    ;INT 21H 
+    lea dx,msg8
+    mov ah,9
+    int 21h 
+    
+    mov ah,2
+    mov dl,bh
+    int 21h
+    
+    mov ah,2
+    mov dl,bl
+    int 21h
     
     
-    ;EXIT_P:
+    ;lea dx,msg
+    ;mov ah,9
+    ;int 21h 
     
-       ; LEA DX,MSG
-       ; MOV AH,9
-       ; INT 21H  
+    
+    ;exit_p:
+    
+       ; lea dx,msg
+       ; mov ah,9
+       ; int 21h  
   
     
    
          
         
-    EXIT:
+    exit:
     
-    MOV AH,4CH
-    INT 21H
-    MAIN ENDP
-END MAIN
+    mov ah,4ch
+    int 21h
+    main endp
+end main
